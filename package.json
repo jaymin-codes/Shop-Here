@@ -8,13 +8,18 @@
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm run dev --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder.js",
+    "data:destroy": "node backend/seeder.js -d"
   },
   "author": "Jaymin Mistry",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "mongoose": "^8.3.2",
     "react-loader-spinner": "^6.1.6"
   },
   "devDependencies": {
