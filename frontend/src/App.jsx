@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="py-3">
+      <main className="py-3"> 
         <Container>
           <Outlet />
           {/* this means that in router the children of App will be rendered here */}
