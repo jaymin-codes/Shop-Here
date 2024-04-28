@@ -11,12 +11,15 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
-
     //JWT token
-    const token = jwt.sign({ //sign method creates a token, takes in payload
-        userId: user._id,}, process.env.JWT_SECRET,
-        { expiresIn: "30d"
-      });
+    const token = jwt.sign(
+      {
+        //sign method creates a token, takes in payload
+        userId: user._id,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "30d" }
+    );
 
     //Set JWT as HTTP-only cookie
     res.cookie("jwt", token, {
@@ -24,8 +27,7 @@ const authUser = asyncHandler(async (req, res) => {
       secure: process.env.NODE_ENV !== "development", //if true than https
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000, //30 days
-    })
-
+    });
 
     res.json({
       _id: user._id,
@@ -50,7 +52,12 @@ const registerUser = asyncHandler(async (req, res) => {
 //@route   POST /api/users/logout
 //@access  Private
 const logoutUser = asyncHandler(async (req, res) => {
-  res.send("logout user");
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({message: 'Logged out successfully'})
 });
 
 //@desc    get user profile
@@ -103,7 +110,7 @@ export {
   logoutUser,
   getUserProfile,
   updateUserProfile,
-  //admin routes 
+  //admin routes
   getUsers,
   getUserById,
   deleteUser,
