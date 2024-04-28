@@ -12,6 +12,10 @@ connectDB(); //mongoose connection from db.js
 const port = process.env.PORT;
 const app = express();
 
+//body parser middleware
+app.use(express.json());  
+app.use(express.urlencoded({extended: true}))
+
 app.get("/", (req, res) => {
   res.send("Shop-Here, API is running...");
 });

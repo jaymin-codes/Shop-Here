@@ -19,6 +19,7 @@
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.2",
     "react-loader-spinner": "^6.1.6"
   },
