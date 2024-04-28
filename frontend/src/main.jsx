@@ -5,6 +5,7 @@ import App from "./App.jsx";
 //screens
 import HomeScreen from "./screens/HomeScreen.jsx";
 import ProductScreen from "./screens/ProductScreen.jsx";
+import CartScreen from "./screens/CartScreen.jsx"
 
 //react-router-dom
 import {
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       {/* Outlet in <App /> will render the below children */}
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/product/:id" element={<ProductScreen />} />
+      <Route path="/cart" element={<CartScreen />} />
     </Route>
   )
 );
