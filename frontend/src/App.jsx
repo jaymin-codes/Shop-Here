@@ -1,5 +1,7 @@
 // Packages import
 import { Container } from "react-bootstrap";
+import {ToastContainer} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 import "./App.css";
 // Router outlet
 import { Outlet } from "react-router-dom";
@@ -18,6 +20,7 @@ function App() {
         </Container>
       </main>
       <Footer />
+      <ToastContainer />
     </>
   );
 }

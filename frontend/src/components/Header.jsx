@@ -1,13 +1,31 @@
-import { Navbar, Nav, Container, Badge } from "react-bootstrap";
+import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useLogoutMutation } from "../slices/usersApiSlice"; //for server
+import { logout } from "../slices/authSlice"; //for local storage
 import logo from "../assets/logo.png";
 
 function Header() {
-  const {cartItems} = useSelector((state) => state.cart); //cart state is from store.js
-  console.log(cartItems);
+  const { cartItems } = useSelector((state) => state.cart); //cart state is from store
+  const { userInfo } = useSelector((state) => state.auth); //auth state if from authSlice
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [logoutApiCall] = useLogoutMutation();
+  //here we renamed and destructered our logout mutation from userApiSlice
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <header>
@@ -29,23 +47,32 @@ function Header() {
                   <FaShoppingCart />
                   <span> </span>
                   Cart
-                  {
-                    cartItems.length > 0 && (
-                      <Badge pill bg="success" style={{marginLeft:'5px'}}>
-                         {cartItems.reduce((acc, crtItem) => acc + crtItem.qty, 0)}
-                      </Badge>
-                    )
-                  }
+                  {cartItems.length > 0 && (
+                    <Badge pill bg="success" style={{ marginLeft: "5px" }}>
+                      {cartItems.reduce((acc, crtItem) => acc + crtItem.qty, 0)}
+                    </Badge>
+                  )}
                 </Nav.Link>
               </LinkContainer>
 
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <FaUser />
-                  <span> </span>
-                  Sign In
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <FaUser />
+                    <span> </span>
+                    Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,3 +1,5 @@
+//we have not added this to store as its a child of apiSlice
+
 import { PRODUCTS_URL } from "../constants.js";
 import { apiSlice } from "./apiSlice.js";
 

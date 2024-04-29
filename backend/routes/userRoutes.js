@@ -17,7 +17,8 @@ const router = express.Router();
 
 //if the route is a admin route we have to add middleware
 
-router.route("/").post(registerUser).get(protect, admin, getUsers); //if POST than registerUser, if GET getUsers
+router.route("/").post(registerUser).get(protect, admin, getUsers);
+//if POST than registerUser, if GET getUsers
 
 router.post("/logout", logoutUser);
 
