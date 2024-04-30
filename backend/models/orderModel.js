@@ -16,17 +16,17 @@ const orderSchema = new Schema(
             image: { type: String, required: true },
             price: { type: Number, required: true },
             product: {
-            type: Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId, //giving id of product 
             required: true,
-            ref: "Product",
+            ref: "Product", //refrence to Product collection where we store all our users
             },
         },
         ],
-        shippindAddress: {
+        shippingAddress: {
         address: { type: String, required: true },
         city: { type: String, required: true },
-        postal_code: { type: Number, required: true },
-        Country: { type: String, required: true },
+        postalCode: { type: Number, required: true },
+        country: { type: String, required: true },
         },
         paymentMethod: {
         type: String,

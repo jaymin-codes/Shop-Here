@@ -41,6 +41,7 @@ function ShippingScreen() {
             placeholder="Enter Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -51,6 +52,7 @@ function ShippingScreen() {
             placeholder="Enter City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -61,6 +63,7 @@ function ShippingScreen() {
             placeholder="Enter Postal Code"
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -71,6 +74,7 @@ function ShippingScreen() {
             placeholder="Enter Country"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 

@@ -7,9 +7,11 @@ import cookieParser from "cookie-parser";
 //routes
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js ";
+
+
 
 connectDB(); //mongoose connection from db.js
-
 const port = process.env.PORT;
 const app = express();
 
@@ -18,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //cookie parser middleware
-app.use(cookieParser()); //parses cookie through req.cookies.jwt 
+app.use(cookieParser()); //parses cookie through req.cookies.jwt
 
 app.get("/", (req, res) => {
   res.send("Shop-Here, API is running...");
@@ -26,6 +28,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
@@ -33,3 +36,4 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+ 
