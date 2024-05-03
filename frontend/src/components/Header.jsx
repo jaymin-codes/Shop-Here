@@ -33,7 +33,7 @@ function Header() {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img src={logo} alt="ShopHere" width={50} height={50} />
+              <img src={logo} alt="ShopHere" width={40} height={40} />
               <span> </span>
               ShopHere
             </Navbar.Brand>
