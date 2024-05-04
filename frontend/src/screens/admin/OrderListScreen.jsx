@@ -1,16 +1,35 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
-import { FaTimes, FaCheck } from "react-icons/fa";
+import { FaTimes, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { useGetOrdersQuery } from "../../slices/ordersApiSlice";
+import {
+  useGetOrdersQuery,
+  useDeleteOrderMutation,
+} from "../../slices/ordersApiSlice";
 
 function OrderListScreen() {
-  const { data: orders, isLoading, error } = useGetOrdersQuery();
+  const { data: orders, isLoading, error, refetch } = useGetOrdersQuery();
+
+  const [deleteOrder, { isLoading: loadingDelete }] = useDeleteOrderMutation();
+
+  const handleDeleteOrder = async (id) => {
+    if (window.confirm("Delete Order?")) {
+      try {
+        await deleteOrder(id);
+        toast.success("Order Deleted");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  };
+  
 
   return (
     <>
       <h3>Orders</h3>
+      {loadingDelete && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -55,6 +74,13 @@ function OrderListScreen() {
                       Details
                     </Button>
                   </LinkContainer>
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => handleDeleteOrder(order._id)}
+                  >
+                    <FaTrash color="white" />
+                  </Button>
                 </td>
               </tr>
             ))}

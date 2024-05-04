@@ -102,7 +102,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
     res.status(200).josn(order);
   } else {
     res.status(404);
-    throw new Error('Order not found')
+    throw new Error("Order not found");
   }
 });
 
@@ -114,6 +114,20 @@ const getAllOrders = asyncHandler(async (req, res) => {
   res.status(200).json(orders);
 });
 
+//@desc    delete order
+//@route   DELETE /api/orders
+//@access  Private/Admin
+const deleteOrder = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    await Order.deleteOne({ _id: order._id });
+    res.status(200).json({ message: "Order deleted" });
+  } else {
+    res.status(404);
+    throw new Error("Resource not found");
+  }
+});
+
 export {
   addOrderItems,
   getMyOrders,
@@ -121,4 +135,5 @@ export {
   updateOrderToPaid,
   updateOrderToDelivered,
   getAllOrders,
+  deleteOrder,
 };
