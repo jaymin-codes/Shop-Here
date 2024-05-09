@@ -1,7 +1,8 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { FaTrash, FaTimes, FaEdit, FaCheck } from "react-icons/fa";
-import {toast} from 'react-toastify'
+// import {toast} from 'react-toastify'
+import toast, { Toaster } from "react-hot-toast";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import {
@@ -79,6 +80,7 @@ function UserListScreen() {
           </tbody>
         </Table>
       )}
+      <Toaster />
     </>
   );
 }

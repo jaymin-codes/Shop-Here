@@ -9,7 +9,8 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import Message from "../components/Message";
@@ -253,6 +254,7 @@ function OrderScreen() {
           </Card>
         </Col>
       </Row>
+      <Toaster />
     </>
   );
 }

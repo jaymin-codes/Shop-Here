@@ -3,7 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import {
   useGetProductDetailsQuery,
   useUpdateProductMutation,
@@ -12,28 +13,50 @@ import {
 
 function ProductEditScreen() {
   const { id: productId } = useParams();
-  const navigate = useNavigate();
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [image, setImage] = useState("");
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
+  const [image, setImage] = useState('');
+  const [brand, setBrand] = useState('');
+  const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
 
   const {
     data: product,
     isLoading,
+    refetch,
     error,
   } = useGetProductDetailsQuery(productId);
-  // console.log(product);
 
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
 
   const [uploadProductImage, { isLoading: loadingUpload }] =
     useUploadProductImageMutation();
+
+  const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await updateProduct({
+        productId,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        description,
+        countInStock,
+      }).unwrap(); // NOTE: here we need to unwrap the Promise to catch any rejection in our catch block
+      toast.success('Product updated');
+      refetch();
+      navigate('/admin/productlist');
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
 
   useEffect(() => {
     if (product) {
@@ -47,31 +70,9 @@ function ProductEditScreen() {
     }
   }, [product]);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      await updateProduct({
-        _id: productId,
-        name,
-        price,
-        image,
-        brand,
-        category,
-        description,
-        countInStock,
-      }).unwrap();;
-      toast.success("Product updated");
-
-      navigate("/admin/productlist");
-      refetch();
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
-    }
-  };
-
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
-    formData.append("image", e.target.files[0]);
+    formData.append('image', e.target.files[0]);
     try {
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
@@ -176,6 +177,7 @@ function ProductEditScreen() {
                   label="Choose file"
                   onChange={uploadFileHandler}
                 ></Form.Control>
+                {loadingUpload && <Loader />}
               </Form.Group>
             </Col>
           </Row>
@@ -185,6 +187,7 @@ function ProductEditScreen() {
           </Button>
         </Form>
       )}
+      <Toaster />
     </>
   );
 }

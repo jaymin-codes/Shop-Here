@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import { useCreateOrderMutation } from "../slices/ordersApiSlice";
 import { clearCartItems } from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
@@ -172,6 +173,7 @@ function PlaceOrderScreen() {
           </Card>
         </Col>
       </Row>
+      <Toaster />
     </>
   );
 }

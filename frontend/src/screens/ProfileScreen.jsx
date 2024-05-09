@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Table, Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { FaTimes } from "react-icons/fa";
@@ -154,6 +155,7 @@ function ProfileScreen() {
           </Table>
         )}
       </Col>
+      <Toaster />
     </Row>
   );
 }

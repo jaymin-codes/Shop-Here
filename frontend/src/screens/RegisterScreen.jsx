@@ -3,7 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import Loader from "../components/Loader";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useRegisterMutation } from "../slices/usersApiSlice.js";
@@ -120,6 +121,7 @@ function RegisterScreen() {
           </Link>
         </Col>
       </Row>
+      <Toaster />
     </FormContainer>
   );
 }

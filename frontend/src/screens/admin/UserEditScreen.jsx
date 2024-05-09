@@ -4,7 +4,8 @@ import { Form, Button, FormGroup, Col } from "react-bootstrap";
 import FormContainer from "../../components/FormContainer";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 import {
   useGetUserDetailsQuery,
   useUpdateUserMutation,
@@ -96,6 +97,7 @@ function UserEditScreen() {
           </Form>
         )}
       </FormContainer>
+      <Toaster />
     </>
   );
 }
