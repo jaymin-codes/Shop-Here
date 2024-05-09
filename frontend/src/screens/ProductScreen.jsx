@@ -1,10 +1,13 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Profiler, useState } from "react";
 //redux
-import { useDispatch } from "react-redux";
-import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  useGetProductDetailsQuery,
+  useCreateReviewMutation,
+} from "../slices/productsApiSlice";
 import { addToCart } from "../slices/cartSlice";
-
+import toast, { Toaster } from "react-hot-toast";
 import {
   Row,
   Col,
@@ -13,31 +16,67 @@ import {
   Card,
   Button,
   ListGroupItem,
+  Form,
   FormControl,
+  FormGroup,
+  FormLabel,
 } from "react-bootstrap";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import dateFormat from "../utils/dateFormatUtils";
 
 function ProductScreen() {
   const { id: productId } = useParams();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
   const {
     data: product,
     isLoading,
     error,
+    refetch,
   } = useGetProductDetailsQuery(productId);
+
+  const [createReview, { isLoading: loadingPdtreview }] =
+    useCreateReviewMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     navigate("/cart");
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await createReview({
+        productId,
+        rating,
+        comment,
+      }).unwrap();
+      refetch();
+      toast.success("Review Submitted");
+      setRating(0);
+      setComment("");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
   return (
     <>
+      <Link className="btn btn-light my-3" to="/">
+        Go Back
+      </Link>
+
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -46,9 +85,6 @@ function ProductScreen() {
         </Message>
       ) : (
         <>
-          <Link className="btn btn-light my-3" to="/">
-            Go Back
-          </Link>
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.image} fluid />
@@ -132,8 +168,72 @@ function ProductScreen() {
               </Card>
             </Col>
           </Row>
+
+          <Row className="review">
+            <Col md={6}>
+              <h2>Reviews</h2>
+              {product.reviews.length === 0 && (
+                <Message>No reviews yet</Message>
+              )}
+              <ListGroup variant="flush">
+                {product.reviews.map((review) => (
+                  <ListGroupItem key={review._id}>
+                    <strong>{review.name}</strong>
+                    <Rating value={review.rating} />
+                    <p className="small">{dateFormat(review.createdAt)}</p>
+                    <p>{review.comment}</p>
+                  </ListGroupItem>
+                ))}
+
+                <ListGroupItem>
+                  <h4>Write a review</h4>
+                  {loadingPdtreview && <Loader />}
+                  {userInfo ? (
+                    <Form onSubmit={handleSubmit}>
+                      <FormGroup controlId="rating" className="my-1">
+                        <FormLabel>Rating</FormLabel>
+                        <FormControl
+                          as="select"
+                          value={rating}
+                          onChange={(e) => setRating(Number(e.target.value))}
+                        >
+                          <option value="">Select...</option>
+                          <option value="1">1 - Poor</option>
+                          <option value="2">2 - Fair</option>
+                          <option value="3">3 - Good</option>
+                          <option value="4">4 - Very Good</option>
+                          <option value="5">5 - Excellent</option>
+                        </FormControl>
+                      </FormGroup>
+                      <FormGroup controlId="comment" className="my-1">
+                        <FormLabel>Comment</FormLabel>
+                        <FormControl
+                          as="textarea"
+                          rows="3"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                        ></FormControl>
+                        <Button
+                          disabled={loadingPdtreview}
+                          type="submit"
+                          variant="primary"
+                        >
+                          Submit
+                        </Button>
+                      </FormGroup>
+                    </Form>
+                  ) : (
+                    <Message>
+                      Please <Link to="/login">Sign in</Link> to write a review
+                    </Message>
+                  )}
+                </ListGroupItem>
+              </ListGroup>
+            </Col>
+          </Row>
         </>
       )}
+      <Toaster />
     </>
   );
 }

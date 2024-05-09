@@ -1,0 +1,10 @@
+.heading-login {
+    color: rgb(22, 22, 22);
+}
+
+.auth-form {
+    border-radius: 15px;
+background: #ebebeb;
+box-shadow:  -47px 47px 94px #fff,
+             47px -47px 94px #ffffff;
+}
