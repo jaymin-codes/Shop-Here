@@ -82,7 +82,7 @@ function OrderScreen() {
   async function onApproveTest() {
     await payOrder({ orderId, details: { payer: {} } });
     refetch();
-    toast.success("Payment Successfull");
+    toast.success("Payment Successfull", {duration: 3000});
   }
 
   function onError(err) {
