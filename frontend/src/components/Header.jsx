@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice"; //for server
 import { logout } from "../slices/authSlice"; //for local storage
+import { resetCart } from "../slices/cartSlice";
 import logo from "../assets/logo.png";
 import SearchBox from "./SearchBox";
 
@@ -22,6 +23,7 @@ function Header() {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
+      dispatch(resetCart());
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -77,14 +79,14 @@ function Header() {
               )}
 
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id="adminmenu">
-                  <LinkContainer to='/admin/productlist'>
+                <NavDropdown title="Admin" id="adminmenu">
+                  <LinkContainer to="/admin/productlist">
                     <NavDropdown.Item>Products</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='/admin/userlist'>
+                  <LinkContainer to="/admin/userlist">
                     <NavDropdown.Item>Customers</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='/admin/orderlist'>
+                  <LinkContainer to="/admin/orderlist">
                     <NavDropdown.Item>Orders</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
