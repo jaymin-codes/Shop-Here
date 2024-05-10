@@ -24,6 +24,7 @@ import {
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
 import dateFormat from "../utils/dateFormatUtils";
 
 function ProductScreen() {
@@ -42,6 +43,7 @@ function ProductScreen() {
     error,
     refetch,
   } = useGetProductDetailsQuery(productId);
+  // console.log(product);
 
   const [createReview, { isLoading: loadingPdtreview }] =
     useCreateReviewMutation();
@@ -85,9 +87,10 @@ function ProductScreen() {
         </Message>
       ) : (
         <>
+        <Meta title={product.name} />
           <Row>
             <Col md={5}>
-              <Image src={product.image} alt={product.image} fluid />
+              <Image src={product.image} alt={product.name} fluid />
             </Col>
             <Col md={4}>
               <ListGroup variant="flush">

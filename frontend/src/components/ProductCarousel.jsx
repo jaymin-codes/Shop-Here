@@ -21,10 +21,10 @@ function ProductCarousel() {
               <Col>
                 <Image src={pdt.image} alt={pdt.name} fluid />
               </Col>
-              <Col className="d-flex align-items-center justify-content-center">
+              <Col className="d-none d-sm-block d-md-flex align-items-center justify-content-center">
                 <Row>
                   <div className="text-white">{pdt.description}</div>
-                  <div className="text-white">
+                  <div>
                     <Rating value={pdt.rating} />
                   </div>
                 </Row>
@@ -32,9 +32,9 @@ function ProductCarousel() {
             </Row>
             <Row>
               <Carousel.Caption className="carousel-caption">
-                <h2>
-                  {pdt.name} (${pdt.price})
-                </h2>
+                <p>
+                  <strong>{pdt.name} (${pdt.price})</strong>
+                </p>
               </Carousel.Caption>
             </Row>
           </Link>

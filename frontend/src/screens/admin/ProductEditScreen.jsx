@@ -177,6 +177,7 @@ function ProductEditScreen() {
                   onChange={uploadFileHandler}
                 ></Form.Control>
               </Form.Group>
+              {loadingUpload && <Loader />}
             </Col>
           </Row>
 
