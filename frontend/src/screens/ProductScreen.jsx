@@ -1,5 +1,5 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { Profiler, useState } from "react";
+import { useEffect, useState } from "react";
 //redux
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -44,6 +44,10 @@ function ProductScreen() {
     refetch,
   } = useGetProductDetailsQuery(productId);
   // console.log(product);
+
+  useEffect(() => {
+    
+  },[product])
 
   const [createReview, { isLoading: loadingPdtreview }] =
     useCreateReviewMutation();
