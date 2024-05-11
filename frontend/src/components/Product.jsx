@@ -8,9 +8,9 @@ function Product({ product }) {
     <Card className="my-3 p-3 rounded">
       <Link
         to={`/product/${product._id}`}
-        style={{ width: "250px", height: "200px" }}
+        
       >
-        <Card.Img src={product.image} variant="top" />
+        <Card.Img style={{ width: "250px", height: "200px" }} src={product.image} variant="top" />
       </Link>
 
       <Card.Body>
