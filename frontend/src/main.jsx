@@ -15,6 +15,7 @@ import PaymentScreen from "./screens/PaymentScreen.jsx";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen.jsx";
 import OrderScreen from "./screens/OrderScreen.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
+import PageNotFound from "./screens/PageNotFound.jsx";
 //admin screens
 import OrderListScreen from "./screens/admin/OrderListScreen.jsx";
 import ProductListScreen from "./screens/admin/ProductListScreen.jsx";
@@ -39,6 +40,7 @@ import "./assets/styles/index.css";
 import "../index-tl.css"
 //other imports
 import { HelmetProvider } from "react-helmet-async";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -77,6 +79,8 @@ const router = createBrowserRouter(
         <Route path="/admin/userlist" element={<UserListScreen />} />
         <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
       </Route>
+
+      <Route path="*" element={<PageNotFound />} />
     </Route>
   )
 );
