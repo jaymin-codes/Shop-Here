@@ -56,7 +56,8 @@ function ProductScreen() {
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
-    navigate("/cart");
+    toast.success("Added to cart 🛒", {duration: 2500})
+    // navigate("/cart");
   };
 
   const handleSubmit = async (e) => {

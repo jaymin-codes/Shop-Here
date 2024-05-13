@@ -32,24 +32,22 @@ function Header() {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+      <Navbar className="p-2 bg-[#efefef]" expand="md" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>
-              <img src={logo} alt="ShopHere" width={40} height={40} />
-              <span> </span>
-              ShopHere
+            <Navbar.Brand className="flex items-center gap-1 font-semibold text-xl text-[#202020]">
+              <img src={logo} alt="ShopHere" className="block h-[50px]" />
+              <span>ShopHere</span>
             </Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <SearchBox />
-              <LinkContainer to="/cart">
+            <SearchBox />
+            <Nav className="ms-auto flex items-center text-[20px] font-medium">
+              <LinkContainer className="flex items-center gap-1" to="/cart">
                 <Nav.Link>
-                  <FaShoppingCart />
-                  <span> </span>
+                  <FaShoppingCart className="text-[#0074d9]" />
                   Cart
                   {cartItems.length > 0 && (
                     <Badge pill bg="success" style={{ marginLeft: "5px" }}>
@@ -60,7 +58,7 @@ function Header() {
               </LinkContainer>
 
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
+                <NavDropdown className="w-full text-center" title={userInfo.name} id="username">
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
@@ -69,9 +67,9 @@ function Header() {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to="/login">
+                <LinkContainer className="flex items-center gap-[2px]" to="/login">
                   <Nav.Link>
-                    <FaUser />
+                    <FaUser className="text-[#0074d9]"/>
                     <span> </span>
                     Sign In
                   </Nav.Link>
@@ -79,7 +77,7 @@ function Header() {
               )}
 
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="adminmenu">
+                <NavDropdown title="Admin" id="adminmenu" className="p-1">
                   <LinkContainer to="/admin/productlist">
                     <NavDropdown.Item>Products</NavDropdown.Item>
                   </LinkContainer>

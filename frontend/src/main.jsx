@@ -36,6 +36,7 @@ import store from "./store.js";
 //styles
 import "./assets/styles/bootstrap.custom.css";
 import "./assets/styles/index.css";
+import "../index-tl.css"
 //other imports
 import { HelmetProvider } from "react-helmet-async";
 
