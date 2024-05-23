@@ -18,9 +18,7 @@ ShopHere is a full-stack e-commerce web application developed using the MERN sta
 
 ### Backend
 - **bcrypt**
-- **colors**
 - **cookie-parser**
-- **cors**
 - **express**
 - **jsonwebtoken**
 - **mongoose**
