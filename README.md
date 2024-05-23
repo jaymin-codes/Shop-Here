@@ -122,6 +122,7 @@ Here is a quick demo of ShopHere: [Demo Link](https://shophere-m5ln.onrender.com
 
 **Developed by:** Jaymin Mistry  
 **Inspired From:** Brad Traversy ProShopV2
+
 **Email:** [jayminmistry101@gmail.com](mailto:jayminmistry101@gmail.com)
 
 Feel free to reach out for any questions or feedback. 
