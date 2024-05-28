@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
 import Meta from '../components/Meta'
+import { useEffect } from "react";
 
 function HomeScreen() {
   const { pageNumber, keyword } = useParams();
@@ -14,7 +15,10 @@ function HomeScreen() {
     keyword,
     pageNumber,
   });
-  console.log(data);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  })
 
   return (
     <>
@@ -35,7 +39,7 @@ function HomeScreen() {
       ) : (
         <>
           <Meta title="ShopHere"/>
-          <h1 className="">Latest Products</h1>
+          <h1 className="text-3xl font-semibold pt-4 pb-2">Latest Products</h1>
           <Row>
             {data.products.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>

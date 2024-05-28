@@ -55,31 +55,31 @@ function PlaceOrderScreen() {
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h4>Shipping</h4>
-              <p>
+              <h4 className="text-2xl font-semibold pb-2">Shipping</h4>
+              <p className="text-lg">
                 <strong>Address: </strong>{" "}
                 {`${address}, ${city} - ${postalCode}, ${country}`}
               </p>
             </ListGroup.Item>
 
-            <ListGroup.Item>
-              <h4>Payment Method</h4>
+            <ListGroup.Item className="text-lg">
+              <h4 className="text-2xl font-semibold pb-2">Payment Method</h4>
               <strong>Method: </strong>
               {paymentMethod}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h4>Order Items</h4>
+              <h4 className="text-2xl font-semibold pb-2">Order Items</h4>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty!!</Message>
               ) : (
                 <ListGroup variant="flush">
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
-                      <Row>
+                      <Row className="flex items-center gap-2">
                         <Col md={3}>
                           <Image
-                            style={{ width: "70px", height: "60px" }}
+                            className="md:w-[100px] w-[150px]"
                             src={item.image}
                             alt={item.name}
                             fluid
@@ -87,12 +87,19 @@ function PlaceOrderScreen() {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item._id}`}>{item.name}</Link>
+                          <Link
+                            to={`/product/${item._id}`}
+                            className="text-lg font-medium text-[#2c2c2c]"
+                          >
+                            {item.name}
+                          </Link>
                         </Col>
                         <Col md={4}>
-                          {`${item.qty} x $${item.price} = $${(
+                          <span className="text-xl font-semibold text-[#2c2c2c]">{`${
+                            item.qty
+                          } x $${item.price} = $${(
                             item.qty * item.price
-                          ).toFixed(2)}`}
+                          ).toFixed(2)}`}</span>
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -107,20 +114,20 @@ function PlaceOrderScreen() {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h4>Order Summary</h4>
+                <h4 className="text-2xl font-semibold text-center">Order Summary</h4>
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <Row>
+                <Row className="text-lg">
                   <Col>Items Cost: </Col>
-                  <Col>${cart.itemsPrice}</Col>
+                  <Col className="font-semibold">${cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <Row>
+                <Row className="text-lg">
                   <Col>Shipping Cost: </Col>
-                  <Col>
+                  <Col className="font-semibold">
                     {cart.shippingPrice > 0 ? (
                       <>
                         ${cart.shippingPrice}
@@ -139,16 +146,16 @@ function PlaceOrderScreen() {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <Row>
+                <Row className="text-lg">
                   <Col>Tax Price: </Col>
-                  <Col>${cart.taxPrice}</Col>
+                  <Col className="font-semibold">${cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <Row>
+                <Row className="text-xl">
                   <Col>Total Price: </Col>
-                  <Col>${cart.totalPrice}</Col>
+                  <Col className="font-semibold">${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -161,7 +168,7 @@ function PlaceOrderScreen() {
               <ListGroup.Item>
                 <Button
                   type="button"
-                  className="btn-block"
+                  className="w-full flex items-center justify-center text-xl font-semibold gap-2"
                   disabled={cart.cartItems.length === 0}
                   onClick={placeOrderHandler}
                 >

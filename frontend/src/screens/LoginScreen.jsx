@@ -53,7 +53,7 @@ function LoginScreen() {
   };
 
   return (
-    <section className="relative flex flex-wrap gap-3 lg:items-center">
+    <section className="relative flex flex-wrap lg:items-center">
       <div className="w-[1/2] border-2 rounded-2xl shadow-xl py-5 px-3">
         <div className="mx-auto max-w-lg text-justify px-2">
           <h1 className="text-3xl font-bold text-[#202020]">
@@ -138,7 +138,7 @@ function LoginScreen() {
         {isLoading && <Loader />}
       </div>
 
-      <div className="relative pt-4 w-full sm:h-96 lg:h-full lg:w-1/2">
+      <div className="relative flex items-center justify-center w-full sm:h-96 lg:h-full lg:w-1/2">
         <img src={signIn} alt="shop-here" />
       </div>
       <Toaster />

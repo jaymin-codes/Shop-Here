@@ -36,17 +36,17 @@ function CartScreen() {
   return (
     <Row>
       <Col md={8}>
-        <h1 style={{ marginBottom: "20px" }}>Shopping Cart</h1>
+        <h1 className="text-2xl font-semibold pb-2">Shopping Cart</h1>
 
         {cartItems.length === 0 ? (
-          <Message>
-            Your cart is empty!! <br/><Link to="/">Go Back</Link>
-          </Message>
+          <span className="text-lg"><Message>
+            Your cart is empty!! <br/><Link to="/" className="underline">Go Back</Link>
+          </Message></span>
         ) : (
           <ListGroup variant="flush">
             {cartItems.map((item) => (
               <ListGroup.Item key={item._id}>
-                <Row>
+                <Row className="text-lg flex gap-2 font-semibold text-[#2c2c2c]">
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
@@ -59,6 +59,7 @@ function CartScreen() {
 
                   <Col md={2}>
                     <Form.Control
+                    className="text-center text-xl p-1 w-[80px]"
                       as="select"
                       value={item.qty}
                       onChange={(e) =>
@@ -90,19 +91,20 @@ function CartScreen() {
         <Card>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>
+              <h2 className="text-2xl font-medium pb-2">
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
-              $
-              {cartItems
+              
+              <span className="text-2xl font-semibold">$ {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
+                .toFixed(2)}</span>
+              
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
                 type="button"
-                className="btn-block"
+                className="w-full flex items-center justify-center text-xl font-semibold gap-2"
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >

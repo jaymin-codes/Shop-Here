@@ -121,12 +121,12 @@ function OrderScreen() {
     <Message variant="danger">{error?.data?.message}</Message>
   ) : (
     <>
-      <h3>Order {order._id}</h3>
+      <h2 className="md:text-3xl text-2xl font-semibold pb-2">Order {order._id}</h2>
       <Row>
         <Col md={8}>
           <ListGroup>
-            <ListGroup.Item>
-              <h4>Shipping</h4>
+            <ListGroup.Item className="text-lg flex flex-col gap-1">
+              <h2 className="text-2xl font-semibold">Shipping</h2>
               <p>
                 <strong>Name: </strong>
                 {order.user.name}
@@ -150,8 +150,8 @@ function OrderScreen() {
               )}
             </ListGroup.Item>
 
-            <ListGroup.Item>
-              <h4>Payment Method</h4>
+            <ListGroup.Item  className="text-lg flex flex-col gap-1">
+              <h2 className="text-2xl font-semibold">Payment Method</h2>
               <p>
                 <strong>Method: </strong>
                 {order.paymentMethod}
@@ -163,12 +163,12 @@ function OrderScreen() {
               )}
             </ListGroup.Item>
 
-            <ListGroup.Item>
-              <h4>Order Items</h4>
+            <ListGroup.Item  className="text-lg flex flex-col gap-1">
+              <h2 className="text-2xl font-semibold pb-1">Order Items</h2>
               {order.orderItems.map((itm, index) => (
                 <ListGroup.Item key={index}>
-                  <Row>
-                    <Col md={1}>
+                  <Row className="flex items-center text-lg text-[#2c2c2c]">
+                    <Col md={2}>
                       <Image src={itm.image} alt={itm.name} fluid rounded />
                     </Col>
                     <Col>
@@ -188,24 +188,24 @@ function OrderScreen() {
           <Card>
             <ListGroup>
               <ListGroup.Item>
-                <h4>Order Summary</h4>
+              <h2 className="text-2xl font-semibold text-center">Order Summary</h2>
               </ListGroup.Item>
-              <ListGroup.Item>
+              <ListGroup.Item className="flex flex-col gap-1 text-lg">
                 <Row>
                   <Col>Items Cost: </Col>
-                  <Col>${order.itemsPrice}</Col>
+                  <Col className="font-semibold">${order.itemsPrice}</Col>
                 </Row>
                 <Row>
                   <Col>Shipping Cost: </Col>
-                  <Col>${order.shippingPrice}</Col>
+                  <Col className="font-semibold">${order.shippingPrice}</Col>
                 </Row>
                 <Row>
                   <Col>Tax: </Col>
-                  <Col>${order.taxPrice}</Col>
+                  <Col className="font-semibold">${order.taxPrice}</Col>
                 </Row>
-                <Row>
+                <Row className="text-xl">
                   <Col>Total Cost: </Col>
-                  <Col>${order.totalPrice}</Col>
+                  <Col className="font-semibold">${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 

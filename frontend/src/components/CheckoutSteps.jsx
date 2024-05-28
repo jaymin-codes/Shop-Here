@@ -4,7 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 function CheckoutSteps({ step1, step2, step3, step4 }) {
   return (
-    <Nav className="justify-content-center mb-4">
+    <Nav className="w-full flex items-center justify-center text-xl">
       <Nav.Item>
         {step1 ? (
           <LinkContainer to="/login">
@@ -57,6 +57,9 @@ function CheckoutSteps({ step1, step2, step3, step4 }) {
         )}
       </Nav.Item>
     </Nav>
+
+
+
   );
 }
 

@@ -21,6 +21,8 @@ import {
   FormGroup,
   FormLabel,
 } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { FaShoppingCart } from "react-icons/fa";
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -46,8 +48,8 @@ function ProductScreen() {
   // console.log(product);
 
   useEffect(() => {
-    
-  },[product])
+    window.scrollTo(0, 0);
+  }, [product]);
 
   const [createReview, { isLoading: loadingPdtreview }] =
     useCreateReviewMutation();
@@ -56,7 +58,7 @@ function ProductScreen() {
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
-    toast.success("Added to cart 🛒", {duration: 2500})
+    toast.success("Added to cart 🛒", { duration: 2500 });
     // navigate("/cart");
   };
 
@@ -91,24 +93,30 @@ function ProductScreen() {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <>
-        <Meta title={product.name} />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <Meta title={product.name} />
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />
             </Col>
             <Col md={4}>
-              <ListGroup variant="flush">
+              <ListGroup variant="flush" className="rounded-xl">
                 <ListGroupItem>
-                  <h3>{product.name}</h3>
+                  <h3 className="text-2xl font-semibold">{product.name}</h3>
                 </ListGroupItem>
-                <ListGroupItem>
+                <ListGroupItem className="text-xl">
                   <Rating
                     value={product.rating}
                     text={`${product.numReviews} reviews`}
                   />
                 </ListGroupItem>
-                <ListGroupItem>Price: ${product.price}</ListGroupItem>
+                <ListGroupItem className="text-xl font-bold">
+                  Price: ${product.price}
+                </ListGroupItem>
                 <ListGroupItem>
                   Description: {product.description}
                 </ListGroupItem>
@@ -116,10 +124,10 @@ function ProductScreen() {
             </Col>
             <Col md={3}>
               <Card>
-                <ListGroup variant="flush">
+                <ListGroup variant="flush" className="text-xl">
                   <ListGroupItem>
                     <Row>
-                      <Col>Price:</Col>
+                      <Col className="font-semibold">Price:</Col>
                       <Col>
                         <strong>${product.price}</strong>
                       </Col>
@@ -127,7 +135,7 @@ function ProductScreen() {
                   </ListGroupItem>
                   <ListGroupItem>
                     <Row>
-                      <Col>Status:</Col>
+                      <Col className="font-semibold">Status:</Col>
                       <Col>
                         <strong>
                           {product.countInStock > 0
@@ -140,10 +148,11 @@ function ProductScreen() {
 
                   {product.countInStock > 0 && (
                     <ListGroupItem>
-                      <Row>
-                        <Col>Qty</Col>
+                      <Row className="flex items-center">
+                        <Col className="font-semibold">Quantity:</Col>
                         <Col>
                           <FormControl
+                            className="text-center text-xl p-1 w-[80px]"
                             as="select"
                             value={qty}
                             onChange={(e) => setQty(Number(e.target.value))}
@@ -164,12 +173,13 @@ function ProductScreen() {
 
                   <ListGroupItem>
                     <Button
-                      className="btn-block"
+                      className="w-full flex items-center justify-center text-xl font-semibold gap-2"
                       type="button"
                       disabled={product.countInStock === 0}
                       onClick={addToCartHandler}
                     >
-                      Add To Cart
+                      Add To
+                      <FaShoppingCart className="text-xl text-white text-center" />
                     </Button>
                   </ListGroupItem>
                 </ListGroup>
@@ -179,22 +189,22 @@ function ProductScreen() {
 
           <Row className="review">
             <Col md={6}>
-              <h2>Reviews</h2>
+              <h2 className="text-2xl font-semibold">Reviews</h2>
               {product.reviews.length === 0 && (
-                <Message>No reviews yet</Message>
+                <span className="mx-2"><Message>No reviews yet</Message></span>
               )}
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
-                  <ListGroupItem key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
+                  <ListGroupItem className=" flex flex-col space-y-1" key={review._id}>
+                    <strong className="text-lg">{review.name}</strong>
+                    <span className="text-lg"><Rating value={review.rating} /></span>
                     <p className="small">{dateFormat(review.createdAt)}</p>
-                    <p>{review.comment}</p>
+                    <p className="text-lg">{review.comment}</p>
                   </ListGroupItem>
                 ))}
 
                 <ListGroupItem>
-                  <h4>Write a review</h4>
+                  <h2 className="text-xl font-semibold">Write a review</h2>
                   {loadingPdtreview && <Loader />}
                   {userInfo ? (
                     <Form onSubmit={handleSubmit}>
@@ -231,15 +241,15 @@ function ProductScreen() {
                       </FormGroup>
                     </Form>
                   ) : (
-                    <Message>
-                      Please <Link to="/login">Sign in</Link> to write a review
-                    </Message>
+                    <span className="mx-2"><Message>
+                      Please <Link className="underline" to="/login">SignIn</Link> to write a review
+                    </Message></span>
                   )}
                 </ListGroupItem>
               </ListGroup>
             </Col>
           </Row>
-        </>
+        </motion.div>
       )}
       <Toaster />
     </>

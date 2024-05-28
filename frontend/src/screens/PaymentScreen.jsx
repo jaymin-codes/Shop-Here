@@ -31,12 +31,12 @@ function PaymentScreen() {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
-      <h1>Payment Method</h1>
+      <h1 className="text-3xl font-semibold text-center pt-3 pb-2">Payment Method</h1>
 
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler} className="w-full">
         <Form.Group>
-          <Form.Label>Select Method</Form.Label>
-          <Col>
+          <Form.Label className="text-xl font-semibold pt-2">Select Method</Form.Label>
+          <Col className="text-lg font-medium">
             <Form.Check
               type="radio"
               className="my-2"
@@ -58,7 +58,7 @@ function PaymentScreen() {
             ></Form.Check>
           </Col>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="w-full flex items-center justify-center text-xl font-semibold gap-2">
           Continue
         </Button>
       </Form>

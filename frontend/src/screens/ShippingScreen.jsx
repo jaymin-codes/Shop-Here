@@ -31,9 +31,9 @@ function ShippingScreen() {
     <FormContainer>
       <CheckoutSteps step1 step2/>
 
-      <h1>Shipping</h1>
+      <h1 className="text-3xl font-semibold text-center p-2">Shipping</h1>
 
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler} className="text-xl">
         <Form.Group controlId="address" className="my-2">
           <Form.Label>Address</Form.Label>
           <Form.Control
@@ -67,7 +67,7 @@ function ShippingScreen() {
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="country" className="my-2">
+        <Form.Group controlId="country" className="mb-4">
           <Form.Label>Country</Form.Label>
           <Form.Control
             type="text"
@@ -78,7 +78,7 @@ function ShippingScreen() {
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary" className="my-2">
+        <Button type="submit" variant="primary" className="w-full flex items-center justify-center text-xl font-semibold">
           Continue
         </Button>
       </Form>

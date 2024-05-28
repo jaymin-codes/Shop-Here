@@ -32,7 +32,7 @@ function Header() {
 
   return (
     <header>
-      <Navbar className="p-2 bg-[#efefef]" expand="md" collapseOnSelect>
+      <Navbar className="pt-2 bg-transparent  "expand="md" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand className="flex items-center gap-1 font-semibold text-xl text-[#202020]">
@@ -44,7 +44,7 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <SearchBox />
-            <Nav className="ms-auto flex items-center text-[20px] font-medium">
+            <Nav className="ms-auto flex items-center text-[18px] font-medium">
               <LinkContainer className="flex items-center gap-1" to="/cart">
                 <Nav.Link>
                   <FaShoppingCart className="text-[#0074d9]" />
@@ -67,10 +67,9 @@ function Header() {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer className="flex items-center gap-[2px]" to="/login">
+                <LinkContainer className="flex items-center gap-[2px] md:w-[100px]" to="/login">
                   <Nav.Link>
                     <FaUser className="text-[#0074d9]"/>
-                    <span> </span>
                     Sign In
                   </Nav.Link>
                 </LinkContainer>
